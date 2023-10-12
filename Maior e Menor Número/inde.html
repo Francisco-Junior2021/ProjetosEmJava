@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encontrar Maior e Menor Número</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="index.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Encontrar Maior e Menor Número</h1>
+        <label for="numerosInput">Digite os números (separados por um separador):</label>
+        <input type="text" id="numerosInput" placeholder="Ex: 2, 4, 5, 10, 1">
+        <br>
+        <label for="separadorInput">Digite o separador:</label>
+        <input type="text" id="separadorInput" placeholder="Ex: ,">
+        <br>
+        <button id="acharBotao">Achar</button>
+        <div id="resultado">
+            <p>Maior número: <span id="maiorNumero"></span></p>
+            <p>Menor número: <span id="menorNumero"></span></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("acharBotao").addEventListener("click", function() {
+            const numerosInput = document.getElementById("numerosInput").value;
+            const separadorInput = document.getElementById("separadorInput").value;
+
+            // Divide a string de números em um array usando o separador
+            const numerosArray = numerosInput.split(separadorInput);
+
+            // Remove espaços em branco dos elementos do array
+            const numerosLimpos = numerosArray.map(numero => numero.trim());
+
+            // Converte os elementos em números
+            const numerosNumeros = numerosLimpos.map(numero => parseFloat(numero));
+
+            if (numerosNumeros.length > 0) {
+                // Encontra o maior e o menor número
+                const maior = Math.max(...numerosNumeros);
+                const menor = Math.min(...numerosNumeros);
+
+                // Exibe os resultados na página
+                document.getElementById("maiorNumero").textContent = maior;
+                document.getElementById("menorNumero").textContent = menor;
+            } else {
+                // Se não houver números válidos, exibe uma mensagem de erro
+                document.getElementById("maiorNumero").textContent = "Nenhum número válido";
+                document.getElementById("menorNumero").textContent = "Nenhum número válido";
+            }
+        });
+    </script>
+</body>
+</html>
