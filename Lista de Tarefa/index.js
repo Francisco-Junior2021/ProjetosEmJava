@@ -1,60 +1,28 @@
-const tarefaInput = document.getElementById("tarefaInput");
-        const listaTarefas = document.getElementById("listaTarefas");
+const taskList = document.getElementById("task-list");
+        const taskInput = document.getElementById("task-input");
 
-        tarefaInput.addEventListener("keyup", function(event) {
-            if (event.key === "Enter" && tarefaInput.value.trim() !== "") {
-                adicionarTarefa(tarefaInput.value);
-                tarefaInput.value = "";
+        taskInput.addEventListener("keyup", function(event) {
+            if (event.key === "Enter" && taskInput.value.trim() !== "") {
+                addTask(taskInput.value.trim());
+                taskInput.value = "";
             }
         });
 
-        function adicionarTarefa(textoTarefa) {
-            const li = document.createElement("li");
-            li.innerHTML = `
-                <span>${textoTarefa}</span>
-                <button class="remove-button">Remover</button>
-            `;
+        function addTask(taskText) {
+            const taskItem = document.createElement("li");
+            taskItem.className = "task-item";
 
-            const removeButton = li.querySelector(".remove-button");
+            const taskTextElement = document.createElement("span");
+            taskTextElement.textContent = taskText;
+
+            const removeButton = document.createElement("button");
+            removeButton.textContent = "Remover";
             removeButton.addEventListener("click", function() {
-                li.remove();
+                taskList.removeChild(taskItem);
             });
 
-            listaTarefas.appendChild(li);
-        }
-        const tarefaInput = document.getElementById("tarefaInput");
-        const listaTarefas = document.getElementById("listaTarefas");
-        const tarefas = [];
+            taskItem.appendChild(taskTextElement);
+            taskItem.appendChild(removeButton);
 
-        tarefaInput.addEventListener("keyup", function(event) {
-            if (event.key === "Enter" && tarefaInput.value.trim() !== "") {
-                adicionarTarefa(tarefaInput.value);
-                tarefaInput.value = "";
-            }
-        });
-
-        function adicionarTarefa(textoTarefa) {
-            tarefas.push(textoTarefa); // Adiciona a tarefa ao array
-            atualizarListaTarefas();
-        }
-
-        function atualizarListaTarefas() {
-            listaTarefas.innerHTML = ""; // Limpa a lista de tarefas
-
-            tarefas.forEach(function(textoTarefa, index) {
-                const li = document.createElement("li");
-                li.innerHTML = `
-                    <span>${textoTarefa}</span>
-                    <button class="remove-button" data-index="${index}">Remover</button>
-                `;
-
-                const removeButton = li.querySelector(".remove-button");
-                removeButton.addEventListener("click", function() {
-                    const index = parseInt(removeButton.getAttribute("data-index"));
-                    tarefas.splice(index, 1); // Remove a tarefa do array
-                    atualizarListaTarefas();
-                });
-
-                listaTarefas.appendChild(li);
-            });
+            taskList.appendChild(taskItem);
         }
